@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,5 +20,8 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::view('/login', 'auth.login')->name('login');
-Route::view('/register', 'auth.register')->name('register');
+Route::view('/login', 'auth.login')->name('auth.login');
+Route::view('/register', 'auth.register')->name('auth.register');
+
+Route::post('/user/login', [LoginController::class, 'store'])->name('login');
+Route::post('/user/register', [RegisterController::class, 'store'])->name('signup');

@@ -19,17 +19,24 @@
         <div class="login-section p-5 md:w-2/4 flex flex-col justify-center items-center min-h-screen h-full">
             <h1 class="text-6xl mb-5">Login</h1>
 
-            <form class="bg-white block shadow-md p-5 md:w-4/5 lg:w-3/5 mb-20 rounded-sm">
+            <form action="{{ route('login') }}" class="bg-white block shadow-md p-5 md:w-4/5 lg:w-3/5 mb-20 rounded-sm" method="POST">
+                @csrf
+                @error('invalid_credentials')
+                    <p class="text-red-700">{{ $message }}</p>
+                @enderror
                 <div class="input-field mb-4">
                     <label for="email" class="text-xl mb-2 inline-block">Email</label>
-                    <input type="email" name="email" placeholder="Enter your email" class="text-lg p-1 block border-indigo-400 border-2 rounded-sm w-full" required/>
+                    <input type="email" name="email" value="{{ old('email') }}" placeholder="Enter your email" class="text-lg p-1 block border-indigo-400 border-2 rounded-sm w-full" required/>
+                    @error('email')
+                        <p class="text-red-700">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="input-field mb-2">
                     <label for="password" class="text-xl mb-2 inline-block">Password</label>
                     <input type="password" name="password" placeholder="Enter your password" class="text-lg p-1 block border-indigo-400 border-2 rounded-sm w-full" required/>
                 </div>
                 <p class="mb-2">
-                   Don't have an account? <a href="{{ route('register')}} " class="text-purple-800">Register here</a>
+                   Don't have an account? <a href="{{ route('auth.register') }}" class="text-purple-800">Register here</a>
                 </p>
                 <input type="submit" value="Submit" class="bg-purple-500 hover:bg-purple-700 text-white text-lg cursor-pointer py-2 px-4"/>
             </form>
